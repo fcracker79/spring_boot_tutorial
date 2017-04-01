@@ -9,6 +9,8 @@ public class Spaturno {
     private int age;
     private int id;
 
+    public Spaturno() {}
+    
     public Spaturno(String name, String surname, int age, int id) {
         this.name = name;
         this.surname = surname;

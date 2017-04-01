@@ -15,6 +15,11 @@ import java.util.Map;
 @Path("/test")
 public class SpaturnoJaxRSController {
     private final Map<Integer, Spaturno> spaturni = new HashMap<>();
+
+    public SpaturnoJaxRSController() {
+        spaturni.put(1, new Spaturno("John", "Smith", 25, 1));
+    }
+
     @GET
     @Path("/spaturni")
     @Produces("application/json")
