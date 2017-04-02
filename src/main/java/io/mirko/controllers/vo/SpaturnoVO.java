@@ -1,17 +1,26 @@
 package io.mirko.controllers.vo;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
 /**
  * Created by mypc on 31/03/17.
  */
-public class Spaturno {
+public class SpaturnoVO {
+    @NotNull
     private String name;
+    @NotNull
     private String surname;
+    @Min(1)
+    @NotNull
     private int age;
+    @Min(1)
+    @NotNull
     private int id;
 
-    public Spaturno() {}
+    public SpaturnoVO() {}
 
-    public Spaturno(String name, String surname, int age, int id) {
+    public SpaturnoVO(String name, String surname, int age, int id) {
         this.name = name;
         this.surname = surname;
         this.age = age;

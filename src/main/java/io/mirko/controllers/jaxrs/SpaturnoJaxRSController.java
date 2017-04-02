@@ -1,8 +1,9 @@
 package io.mirko.controllers.jaxrs;
 
-import io.mirko.controllers.vo.Spaturno;
+import io.mirko.controllers.vo.SpaturnoVO;
 import org.springframework.stereotype.Component;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import java.util.Collection;
@@ -15,24 +16,24 @@ import java.util.Random;
 public class SpaturnoJaxRSController {
     private static final Random RND = new Random();
 
-    private final Map<Integer, Spaturno> spaturni = new HashMap<>();
+    private final Map<Integer, SpaturnoVO> spaturni = new HashMap<>();
 
     public SpaturnoJaxRSController() {
-        spaturni.put(1, new Spaturno("John", "Smith", 25, 1));
+        spaturni.put(1, new SpaturnoVO("John", "Smith", 25, 1));
     }
 
     @GET
     @Path("/spaturni")
     @Produces("application/json")
-    public Collection<Spaturno> getAllSpaturni() {
+    public Collection<SpaturnoVO> getAllSpaturni() {
         return spaturni.values();
     }
 
     @GET
     @Path("/spaturni/{id}")
     @Produces("application/json")
-    public Spaturno getSpaturno(@PathParam("id") @NotNull int id) {
-        final Spaturno spaturno = spaturni.get(id);
+    public SpaturnoVO getSpaturno(@PathParam("id") @NotNull int id) {
+        final SpaturnoVO spaturno = spaturni.get(id);
         if (spaturno == null) {
             throw new NotFoundException();
         }
@@ -42,7 +43,7 @@ public class SpaturnoJaxRSController {
     @POST
     @Path("/spaturni")
     @Produces("application/json")
-    public Spaturno saveNew(Spaturno spaturno) {
+    public SpaturnoVO saveNew(@Valid SpaturnoVO spaturno) {
         final int id = RND.nextInt();
         spaturno.setId(id);
         spaturni.put(spaturno.getId(), spaturno);
@@ -52,7 +53,7 @@ public class SpaturnoJaxRSController {
     @PUT
     @Path("/spaturni")
     @Produces("application/json")
-    public Spaturno updateExisting(Spaturno spaturno) {
+    public SpaturnoVO updateExisting(SpaturnoVO spaturno) {
         if (spaturni.get(spaturno.getId()) == null) {
             throw new NotFoundException();
         }

@@ -31,6 +31,7 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-jersey')
 	//compile('org.springframework.boot:spring-boot-starter-security')
 	compile('org.springframework.boot:spring-boot-starter-web')
-        compile group: 'org.hsqldb', name: 'hsqldb', version: '2.3.4'
+	compile group: 'org.hsqldb', name: 'hsqldb', version: '2.3.4'
+	compile group: 'org.glassfish.jersey.ext', name: 'jersey-bean-validation'
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
