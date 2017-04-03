@@ -33,22 +33,24 @@ repositories {
 
 
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-	compile('org.springframework.boot:spring-boot-starter-jersey') {
+	compile('org.springframework.boot:spring-boot-starter-data-jpa:2.0.0.BUILD-SNAPSHOT')
+	compile('org.springframework.boot:spring-boot-starter-jersey:2.0.0.BUILD-SNAPSHOT') {
 		exclude group: 'org.apache.tomcat.embed', module: 'tomcat-embed-el'
 	}
 	//compile('org.springframework.boot:spring-boot-starter-security')
-	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('org.springframework.boot:spring-boot-starter-web:2.0.0.BUILD-SNAPSHOT')
 	compile group: 'org.hsqldb', name: 'hsqldb', version: '2.3.4'
-	compile group: 'org.glassfish.jersey.ext', name: 'jersey-bean-validation'
-	compile group: 'javax.servlet', name: 'jstl'
-	providedRuntime('org.apache.tomcat.embed:tomcat-embed-jasper')
-	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
+	compile group: 'org.glassfish.jersey.ext', name: 'jersey-bean-validation', version: '2.25.1'
+	compile group: 'javax.servlet', name: 'jstl', version: '1.2'
+	providedRuntime('org.apache.tomcat.embed:tomcat-embed-jasper:8.5.12')
+	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat:2.0.0.BUILD-SNAPSHOT')
     providedRuntime('org.glassfish:javax.el:3.0.0')
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-log4j2', version: '1.5.2.RELEASE'
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
 configurations {
 // 	all*.exclude group: 'org.apache.tomcat.embed', module: 'tomcat-embed-el'
 	all*.exclude group: 'org.glassfish.web', module: 'javax.el'
+    all*.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
 }
