@@ -23,7 +23,7 @@ public class MainControllerTest {
 
     @Test
     public void testJspWithEl() throws Exception {
-        ResponseEntity<String> entity = this.restTemplate.getForEntity("/", String.class);
+        ResponseEntity<String> entity = this.restTemplate.getForEntity("/spring_boot_tutorial/", String.class);
         assertThat(entity.getStatusCode(), IsEqual.equalTo(HttpStatus.OK));
         assertThat(entity.getBody(), containsString("/resources/text.txt"));
     }
