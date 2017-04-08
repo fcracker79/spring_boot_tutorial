@@ -1,12 +1,13 @@
-package io.mirko.controllers.vo;
+package io.mirko.model;
 
+import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.util.UUID;
 
-/**
- * Created by mypc on 31/03/17.
- */
-public class SpaturnoVO {
+@Entity
+@Table(name="spaturno")
+public class Spaturno {
     @NotNull
     private String name;
     @NotNull
@@ -14,24 +15,17 @@ public class SpaturnoVO {
     @Min(1)
     @NotNull
     private int age;
-    @NotNull
-    private String id;
 
-    public SpaturnoVO() {}
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Long id;
 
-    public SpaturnoVO(String name, String surname, int age, String id) {
+    private String uuid;
+
+    public Spaturno(String name, String surname, int age) {
         this.name = name;
         this.surname = surname;
         this.age = age;
-        this.id = id;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -56,5 +50,14 @@ public class SpaturnoVO {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    @PrePersist
+    private void prePersist() {
+        this.uuid = UUID.randomUUID().toString();
     }
 }

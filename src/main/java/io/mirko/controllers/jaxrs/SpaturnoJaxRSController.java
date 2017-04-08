@@ -1,52 +1,49 @@
 package io.mirko.controllers.jaxrs;
 
 import io.mirko.controllers.vo.SpaturnoVO;
+import io.mirko.model.Spaturno;
+import io.mirko.services.SpaturnoService;
 import org.springframework.stereotype.Component;
 
+import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
 
 @Component
 @Path("/test")
 public class SpaturnoJaxRSController {
-    private static final Random RND = new Random();
-
-    private final Map<Integer, SpaturnoVO> spaturni = new HashMap<>();
-
-    public SpaturnoJaxRSController() {
-        spaturni.put(1, new SpaturnoVO("John", "Smith", 25, 1));
-    }
+    @Inject
+    @SuppressWarnings("unused")
+    private SpaturnoService spaturnoService;
 
     @GET
     @Path("/spaturni")
     @Produces("application/json")
     public Collection<SpaturnoVO> getAllSpaturni() {
-        return spaturni.values();
+        final Collection<SpaturnoVO> spaturni = new ArrayList<>();
+        spaturnoService.findAll().forEach(d -> spaturni.add(new SpaturnoVO(d.getName(), d.getSurname(), d.getAge(), d.getUuid())));
+        return spaturni;
     }
 
     @GET
     @Path("/spaturni/{id}")
     @Produces("application/json")
-    public SpaturnoVO getSpaturno(@PathParam("id") @NotNull int id) {
-        final SpaturnoVO spaturno = spaturni.get(id);
+    public SpaturnoVO getSpaturno(@PathParam("id") @NotNull String id) {
+        final Spaturno spaturno = spaturnoService.findById(id);
         if (spaturno == null) {
             throw new NotFoundException();
         }
-        return spaturno;
+        return new SpaturnoVO(spaturno.getName(), spaturno.getSurname(), spaturno.getAge(), spaturno.getUuid());
     }
 
     @POST
     @Path("/spaturni")
     @Produces("application/json")
     public SpaturnoVO saveNew(@Valid SpaturnoVO spaturno) {
-        final int id = RND.nextInt();
-        spaturno.setId(id);
-        spaturni.put(spaturno.getId(), spaturno);
+        spaturno.setId(spaturnoService.saveNew(spaturno.getName(), spaturno.getSurname(), spaturno.getAge()));
         return spaturno;
     }
 
@@ -54,10 +51,9 @@ public class SpaturnoJaxRSController {
     @Path("/spaturni")
     @Produces("application/json")
     public SpaturnoVO updateExisting(SpaturnoVO spaturno) {
-        if (spaturni.get(spaturno.getId()) == null) {
+        if (!spaturnoService.updateSpaturno(spaturno.getId(), spaturno.getName(), spaturno.getSurname(), spaturno.getAge())) {
             throw new NotFoundException();
         }
-        spaturni.put(spaturno.getId(), spaturno);
         return spaturno;
     }
 }
