@@ -8,9 +8,9 @@ import java.util.Map;
 
 @Controller
 public class MainController {
+    @SuppressWarnings("unused")
     @GetMapping("/")
     public String mainPage(Map<String, Object> model) {
-        System.out.println("Dino************************************");
         model.put("time", new Date());
         model.put("message", "This is a test message");
         return "index";
