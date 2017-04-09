@@ -23,6 +23,8 @@ public class Spaturno {
     @NotNull
     private String uuid;
 
+    public Spaturno() {}
+    
     public Spaturno(String name, String surname, int age) {
         this.name = name;
         this.surname = surname;

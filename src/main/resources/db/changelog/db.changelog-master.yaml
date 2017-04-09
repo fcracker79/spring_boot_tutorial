@@ -36,3 +36,22 @@ databaseChangeLog:
             - rollback:
                 - sql:
                     sql: drop table spaturno;
+    - changeSet:
+        id: 2
+        author: fcracker79
+        changes:
+            - insert:
+                tableName: spaturno
+                columns:
+                    - column:
+                        name: name
+                        value: "John"
+                    - column:
+                        name: surname
+                        value: "Smith"
+                    - column:
+                        name: age
+                        value: 25
+                    - column:
+                        name: uuid
+                        value: "672124b6-9894-11e5-be38-001d42e813fe"

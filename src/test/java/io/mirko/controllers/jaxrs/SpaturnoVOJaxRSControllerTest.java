@@ -32,7 +32,7 @@ public class SpaturnoVOJaxRSControllerTest {
         final Map<String, Object> expected = new HashMap<>();
         expected.put("name", "John");
         expected.put("surname", "Smith");
-        expected.put("id", 1);
+        expected.put("id", "672124b6-9894-11e5-be38-001d42e813fe");
         expected.put("age", 25);
         assertThat(spaturnoMap, IsEqual.equalTo(expected));
     }
