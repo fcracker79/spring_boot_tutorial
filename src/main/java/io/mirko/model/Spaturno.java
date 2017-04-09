@@ -20,6 +20,7 @@ public class Spaturno {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
+    @NotNull
     private String uuid;
 
     public Spaturno(String name, String surname, int age) {

@@ -1,0 +1,38 @@
+databaseChangeLog:
+    - changeSet:
+        id: 1
+        author: fcracker79
+        changes:
+            - createTable:
+                tableName: spaturno
+                columns:
+                    - column:
+                        name: id
+                        type: int
+                        autoIncrement: true
+                        constraints:
+                            primaryKey: true
+                            nullable: false
+                    - column:
+                        name: name
+                        type: varchar(50)
+                        constraints:
+                            nullable: false
+                    - column:
+                        name: surname
+                        type: varchar(50)
+                        constraints:
+                            nullable: false
+                    - column:
+                        name: age
+                        type: int
+                        constraints:
+                            nullable: false
+                    - column:
+                        name: uuid
+                        type: uuid
+                        constraints:
+                            nullable: false
+            - rollback:
+                - sql:
+                    sql: drop table spaturno;
