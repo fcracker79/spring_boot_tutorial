@@ -2,13 +2,13 @@ package io.mirko.services;
 
 import io.mirko.model.Spaturno;
 import io.mirko.model.SpaturnoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 
 @Service
 public class SpaturnoServiceImpl implements SpaturnoService {
-    @Inject
+    @Autowired
     private SpaturnoRepository spaturnoRepository;
 
     @Override

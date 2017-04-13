@@ -3,9 +3,9 @@ package io.mirko.controllers.jaxrs;
 import io.mirko.controllers.vo.SpaturnoVO;
 import io.mirko.model.Spaturno;
 import io.mirko.services.SpaturnoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
@@ -15,8 +15,7 @@ import java.util.Collection;
 @Component
 @Path("/test")
 public class SpaturnoJaxRSController {
-    @Inject
-    @SuppressWarnings("unused")
+    @Autowired
     private SpaturnoService spaturnoService;
 
     @GET

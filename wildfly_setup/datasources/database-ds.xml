@@ -1,0 +1,15 @@
+    <datasources>
+        <datasource jndi-name="java:jboss/datasources/spring_boot" pool-name="SpringBoot">
+            <connection-url>jdbc:postgresql://pgsql/spring_boot</connection-url>
+            <driver>pgsql</driver>
+            <pool>
+                <min-pool-size>10</min-pool-size>
+                <max-pool-size>20</max-pool-size>
+                <prefill>true</prefill>
+            </pool>
+            <security>
+                <user-name>spring_boot</user-name>
+                <password>spring_boot</password>
+            </security>
+        </datasource>
+  </datasources>

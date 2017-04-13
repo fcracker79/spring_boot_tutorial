@@ -1,10 +1,11 @@
-FROM tomcat:8.5.13-jre8
-COPY tomcat_setup/conf/tomcat-users.xml /usr/local/tomcat/conf
-COPY tomcat_setup/conf/context.xml /usr/local/tomcat/conf
-COPY tomcat_setup/conf/manager_context.xml /usr/local/tomcat/webapps/manager/META-INF/context.xml
-COPY tomcat_setup/libs/*.jar /usr/local/tomcat/lib
-COPY build/libs/spring_boot_tutorial-0.0.1.war /usr/local/tomcat/webapps/app.war
-EXPOSE 8080
-# ENV logging.config classpath:/log4j2-spring.xml
-# ENV JAVA_OPTS -Dlogging.config=classpath:/log4j2-spring.xml
-RUN echo ".level = INFO" >> /usr/local/tomcat/conf/logging.properties
+FROM jboss/wildfly
+RUN mkdir -p /opt/jboss/wildfly/modules/system/layers/base/org/postgresql/main
+COPY wildfly_setup/pgsql/postgresql-42.0.0.jar /opt/jboss/wildfly/modules/system/layers/base/org/postgresql/main
+COPY wildfly_setup/pgsql/module.xml /opt/jboss/wildfly/modules/system/layers/base/org/postgresql/main
+# COPY wildfly_setup/pgsql/postgresql-42.0.0.jar /tmp
+# RUN /opt/jboss/wildfly/bin/jboss-cli.sh -c "module add --name=org.postgresql --resources=/tmp/postgresql-42.0.0.jar --dependencies=javax.api,javax.transaction.api"
+# RUN /opt/jboss/wildfly/bin/jboss-cli.sh -c "/subsystem=datasources/jdbc-driver=postgresql:add(driver-name=postgresql,driver-module-name=org.postgresql,driver-xa-datasource-class-name=org.postgresql.xa.PGXADataSource)"
+# COPY wildfly_setup/datasources/*-ds.xml /opt/jboss/wildfly/standalone/deployments
+COPY wildfly_setup/pgsql/postgresql-42.0.0.jar /opt/jboss/wildfly/standalone/deployments
+COPY wildfly_setup/standalone.xml /opt/jboss/wildfly/standalone/configuration
+COPY build/libs/spring_boot_tutorial-0.0.1.war /opt/jboss/wildfly/standalone/deployments/app.war
