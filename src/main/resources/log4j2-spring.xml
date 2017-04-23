@@ -9,10 +9,13 @@
                 <pattern>%d %p %C{1.} [%t] %m%n</pattern>
             </PatternLayout>
         </File>
+        <Socket name="Logstash" host="logstash" port="5555">
+            <JsonLayout />
+        </Socket>bi
     </Appenders>
     <Loggers>
         <Root level="DEBUG">
-            <AppenderRef ref="File1"/>
+            <AppenderRef ref="Logstash"/>
         </Root>
     </Loggers>
 </Configuration>
